@@ -216,3 +216,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- This project -----------------------------------------------------
+# Raw M5 data is large (120MB+) and downloaded from Kaggle, not authored
+# here -- don't commit it. data/processed/ (the small, reproducible
+# output of src/data_loader.py) IS committed, since that's the actual
+# project artifact.
+data/raw/
+outputs/
+
