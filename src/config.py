@@ -28,6 +28,9 @@ MIN_HISTORY_FOR_EVALUATION = 12
 MIN_HISTORY_FOR_SEASONALITY = 24
 TEST_SIZE_FRACTION = 0.2
 TRACKING_SIGNAL_CONTROL_LIMIT = 4.0
+SEASONAL_PERIOD = 12          # monthly data -> annual seasonality
+SMA_WINDOWS = [3, 6, 12]      # candidate windows; best one picked per-SKU
+CROSTON_ALPHA = 0.1           # classic Croston smoothing parameter
 
 # Demand classification thresholds (Syntetos & Boylan, 2005) --------------
 ADI_THRESHOLD = 1.32
