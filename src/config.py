@@ -35,3 +35,23 @@ CROSTON_ALPHA = 0.1           # classic Croston smoothing parameter
 # Demand classification thresholds (Syntetos & Boylan, 2005) --------------
 ADI_THRESHOLD = 1.32
 CV2_THRESHOLD = 0.49
+
+# --- Model selection --------------------------------------------------
+# Which forecasting methods are even considered for each demand class.
+# Holt-Winters is never a candidate for Intermittent/Lumpy SKUs by design:
+# it smooths every period equally, which drags a sparse, spiky series
+# toward zero. "Undefined"-classified SKUs (too little history to
+# classify at all) get every method as a candidate, since classification
+# itself couldn't tell us anything to filter on.
+CANDIDATE_METHODS_BY_CLASS = {
+    "Smooth": ["SMA", "SES", "Holt-Winters"],
+    "Erratic": ["SMA", "SES", "Holt-Winters"],
+    "Intermittent": ["SMA", "SES", "Croston"],
+    "Lumpy": ["SMA", "SES", "Croston"],
+    "Undefined": ["SMA", "SES", "Holt-Winters", "Croston"],
+}
+
+# Tracking-signal guardrail: how much worse (relative to the best
+# candidate's WMAPE) a more-stable alternative is allowed to be and still
+# override the top pick.
+GUARDRAIL_WMAPE_TOLERANCE = 0.15
